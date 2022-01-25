@@ -24,10 +24,12 @@ class WhatsApp extends Mail {
         this.isBussinessAccount = isBussinessAccount;
     }
     
-    myProfile(){
-        return `my name ${this.username}, is ${this.isBussinessAccount ? 'Bussiness' : 'Personal'}`;
+    sendMessage(msg, to){
+        super.sendMessage(msg, to);
+        console.log('Send by WA');
     }
 }
 
 const wa1 = new WhatsApp('sinko', true, 0895647378);
-console.log(wa1.myProfile);
+console.log("Whatsapp");
+wa1.sendMessage('halo',0895647378);
