@@ -1,11 +1,12 @@
-const createPersonWithAge = (age, person) => {
-  return { ...person, age };
+const user = {
+  firstname: 'Harry',
+  lastname: 'Protter',
 }
 
-const person = {
-  name: 'Bobo'
-};
+const createUserWithNewLastName = (newLastName, user) => {
+  return {...user, lastname: newLastName}
+}
 
-const newPerson = createPersonWithAge(18, person);
+const newUser = createUserWithNewLastName('Potter', user);
 
-console.log({person, newPerson});
+console.log(newUser);
