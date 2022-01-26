@@ -1,18 +1,6 @@
-//  Cara Lama
-const names = ['Harry', 'Ron', 'Jeff', 'Thomas'];
-
-const newNamesWithExcMark = [];
-
-for (let i = 0; i < names.length; i++) {
-  newNamesWithExcMark.push(`${names[i]}`);
+const hitungLuasLingkaran = (jarijari) => {
+  return 3.14 * (jarijari * jarijari);
 }
 
-console.log(newNamesWithExcMark);
-
-//  Cara Baru
-
-// const names = ['Harry', 'Ron', 'Jeff', 'Thomas'];
-
-const newNamesWithExcMarks = names.map((name) => `${name}!`);
-
-console.log(newNamesWithExcMarks);
+console.log(hitungLuasLingkaran(4));
+console.log(hitungLuasLingkaran(8));
