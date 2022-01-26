@@ -1,6 +1,11 @@
-const hitungLuasLingkaran = (jarijari) => {
-  return 3.14 * (jarijari * jarijari);
+const createPersonWithAge = (age, person) => {
+  return { ...person, age };
 }
 
-console.log(hitungLuasLingkaran(4));
-console.log(hitungLuasLingkaran(8));
+const person = {
+  name: 'Bobo'
+};
+
+const newPerson = createPersonWithAge(18, person);
+
+console.log({person, newPerson});
