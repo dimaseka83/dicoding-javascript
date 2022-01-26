@@ -1,12 +1,18 @@
-const user = {
-  firstname: 'Harry',
-  lastname: 'Protter',
+// Before
+const countDown = start => {
+  do {
+    console.log(start);
+    start -= 1;
+  }
+  while (start > 0);
 }
 
-const createUserWithNewLastName = (newLastName, user) => {
-  return {...user, lastname: newLastName}
+countDown(10);
+console.log("batas");
+
+const countDown2 = start => {
+  console.log(start);
+  if (start > 0) countDown2(start - 1);
 }
 
-const newUser = createUserWithNewLastName('Potter', user);
-
-console.log(newUser);
+countDown2(10)
