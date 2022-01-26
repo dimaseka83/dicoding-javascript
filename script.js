@@ -1,35 +1,26 @@
+const canSendMessage = self => ({
+    sendMessage: () => console.log('send message:', self.message)
+});
 
-class Mail {
-    constructor(author){
-        this.from = author;
-        this._contacts = [];
-    }
-    sendMessage(msg, to){
-        console.log(`you send: ${msg} to ${to} from ${this.from}`);
-        this._contacts.push(to);
-    }
-    showAllContacts(){
-        return this._contacts;
-    }
-}
+const checkIsValidPhone = self => ({
+    isValid: () => console.log('valid phone:', self.from)
+});
 
-const mail1 = new Mail("Dhimas");
-mail1.sendMessage("Hallo", "Eka");
-console.log(mail1.showAllContacts());
+const personalEnterprise = (from, message, store) => {
+    const self = {
+        from,
+        message,
+        store,
+    };
 
-class WhatsApp extends Mail {
-    constructor(username, isBussinessAccount, phone) {
-        super(phone);
-        this.username = username;
-        this.isBussinessAccount = isBussinessAccount;
-    }
-    
-    sendMessage(msg, to){
-        super.sendMessage(msg, to);
-        console.log('Send by WA');
-    }
-}
+    const personalEnterpriseBehaviors = self => ({
+        createCatalog: () => console.log('Catalog has created: ', self.store)
+    });
 
-const wa1 = new WhatsApp('sinko', true, 0895647378);
-console.log("Whatsapp");
-wa1.sendMessage('halo',0895647378);
+    return Object.assign(self, personalEnterpriseBehaviors(self), canSendMessage(self), checkIsValidPhone(self));
+};
+
+const pe1 = personalEnterprise(08956522542,'hei produk baru nih', 'Dicoding Store');
+pe1.createCatalog();
+pe1.sendMessage();
+pe1.isValid();
