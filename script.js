@@ -1,24 +1,13 @@
-const stock = {
-  coffeBeans: 250,
-  water: 1000
+const orderCoffee = callback => {
+  let coffee = null;
+  console.log("Sedang membuat kopi silahkan tunggu...");
+  setTimeout(() => {
+    coffee = "Kopi sudah jadi!";
+    callback(coffee);
+  }, 3000);
 }
 
-const checkStock = () => {
-  return new Promise((resolve, reject) => {
-    if (stock.coffeBeans >= 16 && stock.water >= 250) {
-        resolve("Stok cukup. Bisa membuat kopi");
-    }else {
-      reject("Stok tidak cukup");
-    }
-  })
-}
+orderCoffee(coffee => {
+  console.log(coffee);
+})
 
-const handleSuccess = resolvedValue => {
-  console.log(resolvedValue);
-}
-
-const handleFailure = rejectionReason => {
-  console.log(rejectionReason);
-}
-
-checkStock().then(handleSuccess, handleFailure);
