@@ -11,10 +11,9 @@ const getCoffee = () => {
   })
 }
 
-function makeCoffee() {
-  getCoffee().then(coffee => {
-    console.log(coffee);
-  })
+async function makeCoffee() {
+  const coffee = await getCoffee();
+  console.log(coffee);
 }
 
 makeCoffee();
