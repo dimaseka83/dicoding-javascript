@@ -1,6 +1,6 @@
 const getCoffee = () => {
   return new Promise((resolve, reject) => {
-    const seeds = 100;
+    const seeds = 1;
     setTimeout(() => {
       if (seeds >= 10) {
         resolve("Kopi didapatkan!");
@@ -12,8 +12,12 @@ const getCoffee = () => {
 }
 
 async function makeCoffee() {
-  const coffee = await getCoffee();
-  console.log(coffee);
+  try {
+    const coffe = await getCoffee();
+    console.log(coffe);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 makeCoffee();
