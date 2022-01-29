@@ -39,9 +39,9 @@ const fetchingUserFromInternet = (isOffline) => {
   setTimeout(() => {
     return new Promise((resolve, reject) => {
       if (isOffline) {
-          resolve(new NetworkError('Gagal mendapatkan data dari internet'), null)
+          reject(new NetworkError('Gagal mendapatkan data dari internet'), null)
       } else {
-        reject(null, { name: 'John', age: 18 })
+        resolve(null, { name: 'John', age: 18 })
       }
     })
   }, 500);
@@ -49,17 +49,16 @@ const fetchingUserFromInternet = (isOffline) => {
 
 
 // TODO: 2
-const gettingUserName = () => {
-  fetchingUserFromInternet((error, user) => {
-    if (error) {
-      return error.message;
-    }
-    return user.name;
-  }, false);
-};
-
+async function gettingUserName() {
+  try {
+    const user = await fetchingUserFromInternet(false);
+  } catch (error) {
+    return error;
+  }
+}
+gettingUserName();
 /**
  * Abaikan kode di bawah ini
  */
 
-module.exports = { fetchingUserFromInternet, gettingUserName, NetworkError };
+// module.exports = { fetchingUserFromInternet, gettingUserName, NetworkError };
