@@ -1,78 +1,63 @@
-const state = {
-  stock: {
-    coffeeBeans: 250,
-    water: 1000,
-  },
-  isCoffeeMachineBusy: false,
-}
+/**
+ * Ini adalah program untuk mendapatkan nama user dari internet.
+ * Terdapat dua fungsi yang sudah dibuat, berikut penjelasanya:
+ *   - fetchingUserFromInternet:
+ *     - fungsi ini digunakan untuk mendapatkan data user seolah-olah dari internet.
+ *     - fungsi ini menerima dua argumen yakni callback, dan isOffline.
+ *     - Argumen callback membawa dua nilai yakni error dan user:
+ *       - error: NetworkError akan dibawa oleh callback bila isOffline bernilai true.
+ *       - user: data user akan dibawa oleh callback bila isOffline bernilai false.
+ *   - gettingUserName:
+ *      - fungsi ini memanggil fungsi fetchingUserFromInternet dengan nilai isOffline: false untuk mendapatkan data user name dari internet.
+ *      - fungsi ini harus mengembalikan nilai user.name, namun sulit karena menggunakan pola callback.
+ *      - Maka dari itu, ubahlah fetchingUserFromInternet dari callback menjadi promise
+ *      - Dengan begitu, Anda bisa memanfaatkan .then atau async/await untuk mendapatkan user.name.
+ *
+ * TODO: 1
+ * - Ubahlah fungsi fetchingUserFromInternet dengan memanfaatkan Promise. Anda bisa menghapus implementasi callback.
+ *
+ * TODO: 2
+ * - Ubahlah cara mengonsumsi fungsi fetchingUserFromInternet dari callback ke Promise.
+ * - Tips:
+ *   - Agar penulisan kode lebih bersih dan mudah dibaca, coba manfaatkan async/await
+ *
+ *
+ * Notes:
+ * - Jangan ubah struktur atau nilai dari objek user yang dibawa oleh callback sebelumnya.
+ * - Tetap gunakan NetworkError untuk membawa nilai error pada Promise
+ */
 
-const checkAvailability = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (!state.isCoffeeMachineBusy) {
-        resolve("Mesin kopi sudah siap digunakan.");
-      } else {
-        reject("Maaf, mesin sedang sibuk.");
-      }
-    }, 1000);
-  })
-}
-
-const checkStock = () => {
-  return new Promise((resolve, reject) => {
-    state.isCoffeeMachineBusy = true;
-    setTimeout(() => {
-      if (state.stock.coffeeBeans >= 16 && state.stock.water >= 250) {
-        resolve(
-          "Stok cukup bisa membuat kopi.",
-          state.stock.coffeeBeans -= 16,
-          state.stock.water -= 250
-        );
-
-      } else {
-        reject("Stok tidak cukup!");
-      }
-    }, 1500);
-  })
-}
-
-const boilWater = () => {
-  return new Promise((resolve, reject) => {
-    console.log("Memanaskan air...");
-    setTimeout(() => {
-      resolve("Air panas sudah siap!");
-    }, 2000);
-  })
-}
-
-const grindCoffeeBeans = () => {
-  return new Promise((resolve, reject) => {
-    console.log("Menggiling biji kopi...");
-    setTimeout(() => {
-      resolve("Kopi sudah siap!");
-    }, 1000);
-  })
-}
-
-const brewCoffe = () => {
-  console.log("Membuatkan kopi Anda....");
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("Kopi sudah siap!")
-    }, 2000);
-  })
-}
-
-async function makeEspresso() {
-  try {
-    await checkAvailability();
-    await checkStock();
-    await Promise.all([boilWater(), grindCoffeeBeans()]);
-    const coffee = await brewCoffe();
-    console.log(coffee);
-  } catch (rejectedReason) {
-    console.log(rejectedReason);
+class NetworkError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'NetworkError';
   }
 }
-makeEspresso();
-console.log(state);
+
+// TODO: 1
+const fetchingUserFromInternet = (isOffline) => {
+  setTimeout(() => {
+    return new Promise((resolve, reject) => {
+      if (isOffline) {
+          resolve(new NetworkError('Gagal mendapatkan data dari internet'), null)
+      }
+    })
+  }, 500);
+};
+
+
+// TODO: 2
+const gettingUserName = () => {
+  fetchingUserFromInternet((error, user) => {
+    if (error) {
+      return error.message;
+    }
+    return user.name;
+  }, false);
+};
+
+/**
+ * Abaikan kode di bawah ini
+ */
+
+module.exports = { fetchingUserFromInternet, gettingUserName, NetworkError };
