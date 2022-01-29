@@ -40,6 +40,8 @@ const fetchingUserFromInternet = (isOffline) => {
     return new Promise((resolve, reject) => {
       if (isOffline) {
           resolve(new NetworkError('Gagal mendapatkan data dari internet'), null)
+      } else {
+        reject(null, { name: 'John', age: 18 })
       }
     })
   }, 500);
